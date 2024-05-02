@@ -1,0 +1,47 @@
+<!-- trend.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Trends</title>
+    <style>
+         a:link {
+        text-decoration: none;
+    }
+
+    .card {
+        height: 750px;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif; /* Use Poppins font for the entire document */
+    }
+
+    h1,h2,h3,h4,h5,h6{
+        font-weight: lighter;
+    }
+    </style>
+</head>
+<body>
+    <h1>Select a Category:</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <select name="category">
+            {% for category in categories %}
+                <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="search_params">Search Params:</label>
+        <input type="text" id="search_params" name="search_params">
+        <br><br>
+        <label for="max_results">Max Results per Letter:</label>
+        <input type="number" id="max_results_per_letter" name="max_results_per_letter" min="1">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Trends Results</title>
+    <style>
+        /* Import Poppins font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif; /* Use Poppins font for the entire document */
+        }
+        h1,h2,h3,h4,h5,h6{
+            font-weight: lighter;
+        }
+    </style>
+</head>
+<body>
+    <h1>Amazon Trends Results</h1>
+    <p>Category: <b>{{ category }}</b></p>
+    <p>Generated on: <b>{{ current_datetime }}</b></p> <!-- Add current date and time -->
+    <p>Search Parameters: <b>{{ search_params }}</b></p> <!-- Add search parameters -->
+    <p>Max Words per Letter: <b>{{ max_results_per_letter }}</b></p> <!-- Add max words per letter details -->
+
+    <!-- Display the graph -->
+    <h3>Trends Analysis:</h3>
+    <img style="max-width: 100%; height: auto;" src="data:image/png;base64,{{ graph }}" alt="Trending Words Graph">
+</body>
+</html>

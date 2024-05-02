@@ -1,0 +1,47 @@
+{% extends 'newsapp/base.html' %}
+
+{% block body %}
+    <h3>Amazon Trends Results</h3>
+    <p>Category: <b>{{ category }}</b></p>
+    <p>Search parameters: <b>{{search_params}}</b></p>
+    <p>Maximum words per letter: <b>{{max_results_per_letter}}</b></p>
+    <h3>Trending Words:</h3>
+    <ul>
+        {% for word in trends %}
+            <li><h6>{{ word.title }}</h6></li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Display the graph -->
+    <h4>Trends Analysis:</h4>
+    <img src="data:image/png;base64,{{ graph }}" alt="Trending Words Graph">
+
+    <form action="{% url 'amztrend:generate_pdf' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="category" value="{{ category }}">
+        <input type="hidden" name="search_params" value="{{ search_params }}">
+        <input type="hidden" name="max_results_per_letter" value="{{ max_results_per_letter }}">
+        <input type="hidden" name="graph" value="{{ graph }}">
+        <button type="submit">Generate PDF Report</button>
+    </form>
+    
+    <form action="{% url 'amztrend:generate_csv' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="category" value="{{ category }}">
+        <input type="hidden" name="search_params" value="{{ search_params }}">
+        <input type="hidden" name="max_results_per_letter" value="{{max_results_per_letter }}">
+        <input type="hidden" name="trends" value="{{ trends }}">
+        <button type="submit">Generate CSV Report</button>
+    </form>
+
+    <form action="{% url 'amztrend:mail_reports' %}" method="post" id="mailForm">
+        {% csrf_token %}
+        <input type="hidden" name="category" value="{{ category }}">
+        <input type="hidden" name="search_params" value="{{ search_params }}">
+        <input type="hidden" name="max_results_per_letter" value="{{ max_results_per_letter }}">
+        <input type="hidden" name="trends" value="{{ trends }}">
+        <input type="hidden" name="graph" value="{{ graph }}">
+        <button type="submit">Mail Reports</button>
+    </form>
+    
+    {% endblock %}

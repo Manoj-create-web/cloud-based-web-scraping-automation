@@ -1,0 +1,40 @@
+
+    {% extends 'newsapp/base.html' %}
+
+    {% block body %}
+    <h3>Amazon Prices Result</h3>
+    
+    <!-- Display input parameters -->
+    <h4>Search Parameters:</h4>
+    <p><strong>Keyword:</strong> {{ keyword }}</p>
+    <p><strong>Sort Type:</strong> {{ sort_type }}</p>
+    <p><strong>Minimum Price:</strong> ${{ min_price }}</p>
+    <p><strong>Category:</strong> {{ category }}</p>
+    <p><strong>Maximum Results:</strong> {{ max_results }}</p>
+    <p><strong>Minimum Rating:</strong> {{ min_rating }}</p>
+    
+    <!-- Display price comparison graph -->
+    <img src="data:image/jpeg;base64,{{ image_data }}" alt="Price Comparison Graph">
+    
+    <!-- Add a button to generate PDF -->
+    <form action="{% url 'amzprices:generate_pdf' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="keyword" value="{{ keyword }}">
+        <input type="hidden" name="sort_type" value="{{ sort_type }}">
+        <input type="hidden" name="min_price" value="{{ min_price }}">
+        <input type="hidden" name="category" value="{{ category }}">
+        <input type="hidden" name="max_results" value="{{ max_results }}">
+        <input type="hidden" name="min_rating" value="{{ min_rating }}">
+        <input type="hidden" name="image_data" value="{{ image_data }}">
+        <button type="submit">Generate PDF</button>
+    </form>
+
+    <form action="{% url 'amzprices:generate_csv' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="asins" value="{% for asin in asins %}{{ asin }},{% endfor %}">
+        <input type="hidden" name="prices" value="{% for price in prices %}{{ price }},{% endfor %}">
+        <button type="submit">Generate CSV</button>
+    </form>
+    
+
+    {% endblock %}

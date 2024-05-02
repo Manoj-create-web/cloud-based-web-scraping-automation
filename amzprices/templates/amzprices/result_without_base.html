@@ -1,0 +1,14 @@
+<h3>Amazon Prices Result</h3>
+
+<!-- Display input parameters -->
+<h4>Search Parameters:</h4>
+<p><strong>Keyword:</strong> {{ keyword }}</p>
+<p><strong>Sort Type:</strong> {{ sort_type }}</p>
+<p><strong>Minimum Price:</strong> ${{ min_price }}</p>
+<p><strong>Category:</strong> {{ category }}</p>
+<p><strong>Maximum Results:</strong> {{ max_results }}</p>
+<p><strong>Minimum Rating:</strong> {{ min_rating }}</p>
+
+<h3>Price Analysis:</h3>
+<!-- Display price comparison graph -->
+<img  style="max-width: 100%; height: auto;" src="data:image/jpeg;base64,{{ image_data }}" alt="Price Comparison Graph">
